@@ -1,0 +1,25 @@
+{
+  "name": "ndse-homeworks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "cmd": "002-console/script.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kivals/ndse-homeworks.git"
+  },
+  "author": "melnik",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kivals/ndse-homeworks/issues"
+  },
+  "homepage": "https://github.com/kivals/ndse-homeworks#readme",
+  "dependencies": {
+    "yargs": "^16.1.1"
+  }
+}
