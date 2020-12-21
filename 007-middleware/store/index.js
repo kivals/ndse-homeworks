@@ -15,7 +15,16 @@ class Store {
   refreshStore() {
     const dbBooks = helper.readBooks();
     this.books = dbBooks.map(
-      (b) => new Book(b.id, b.title, b.description, b.authors, b.favorite, b.fileCover, b.fileName),
+      (b) => new Book(
+          b.id,
+          b.title,
+          b.description,
+          b.authors,
+          b.favorite,
+          b.fileCover,
+          b.fileName,
+          b.fileBook,
+        ),
     );
   }
 

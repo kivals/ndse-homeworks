@@ -4,7 +4,7 @@ const uidGenerator = require('node-unique-id-generator');
  * Модель "Книга"
  */
 class Book {
-  constructor(id, title, description, authors, favorite, fileCover, fileName) {
+  constructor(id, title, description, authors, favorite, fileCover, fileName, fileBook) {
     if (!id) {
       this.id = uidGenerator.generateUniqueId();
     } else {
@@ -16,6 +16,7 @@ class Book {
     this.favorite = favorite;
     this.fileCover = fileCover;
     this.fileName = fileName;
+    this.fileBook = fileBook;
   }
 
   // TODO Как это сделать более красиво ???
@@ -40,6 +41,9 @@ class Book {
     }
     if (book.fileName) {
       this.fileName = book.fileName;
+    }
+    if (book.fileBook) {
+      this.fileBook = book.fileBook;
     }
   }
 }

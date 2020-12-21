@@ -19,4 +19,8 @@ module.exports = {
     const file = path.join(__dirname, 'mock-db', 'db.json');
     fs.writeFileSync(file, JSON.stringify({ books }));
   },
+
+  getFileFromReq(req) {
+    return req.file ? req.file.filename : '';
+  },
 };

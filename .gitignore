@@ -5,3 +5,5 @@
 /*/node_modules/
 /004-stream/filename.txt
 package-lock.json
+/007-middleware/public/books/
+db.json
