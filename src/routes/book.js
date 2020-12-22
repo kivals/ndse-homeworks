@@ -48,7 +48,7 @@ router.post('/', fileMiddleware.single('fileBook'), (req, res) => {
     favorite,
     fileCover,
     fileName,
-    fileBook,
+    fileBook
   );
   store.setBook(newBook);
   res.statusCode = 201;
@@ -67,7 +67,7 @@ router.put('/:id', fileMiddleware.single('fileBook'), (req, res) => {
     favorite,
     fileCover,
     fileName,
-    fileBook,
+    fileBook
   );
   try {
     const updatedBook = store.updateBook(newBook);

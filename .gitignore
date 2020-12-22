@@ -2,4 +2,4 @@
 /.idea
 package-lock.json
 /public/books/
-/mock-db/db.json
+/src/mock-db/db.json
