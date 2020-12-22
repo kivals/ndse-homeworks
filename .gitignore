@@ -1,9 +1,5 @@
 /node_modules
 /.idea
-/package-lock.json
-/*/.env
-/*/node_modules/
-/004-stream/filename.txt
 package-lock.json
-/007-middleware/public/books/
-db.json
+/public/books/
+/mock-db/db.json
