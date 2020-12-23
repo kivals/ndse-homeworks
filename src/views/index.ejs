@@ -6,7 +6,7 @@
             <div class="card mb-3" style="max-width: 540px;">
                 <div class="row g-0">
                     <div class="col-md-4">
-                        <img src="<%= book.fileCover %>" alt="..." style="width: 150px; height: 200px">
+                        <img class="img-fluid" src="<%= book.fileCover %>" alt="..." style="height: 200px">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    Card footer
+                    <a href="/books/<%= book.id %>" class="btn btn-primary">Смотреть</a>
                 </div>
             </div>
         <% }) %>

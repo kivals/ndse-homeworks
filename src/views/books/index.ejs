@@ -1,0 +1,18 @@
+<%- include('../partials/layout-header', {title: title}) %>
+<div class="row">
+    <div class="col">
+        <img src="<%= book.fileCover %>" class="img-fluid" alt="...">
+    </div>
+    <div class="col">
+        <h1 class="font-monospace"><%= book.title %></h1>
+        <p class="text-muted">
+            <%= book.description%>
+        </p>
+        <p class="text-muted">
+            <%= book.authors%>
+        </p>
+        <hr>
+        <a href="/" class="btn btn-primary">Назад</a>
+    </div>
+</div>
+<%- include('../partials/layout-footer', {title: title})%>
