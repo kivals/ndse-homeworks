@@ -9,8 +9,10 @@ const { Book } = require('../models');
 const store = new Store();
 
 router.get('/create', (req, res) => {
+  const book = new Book();
   res.render('books/create', {
     title: 'Создание книги',
+    book,
   });
 });
 
@@ -23,7 +25,7 @@ router.get('/:id', (req, res) => {
   });
 });
 
-router.post('/', fileMiddleware.single('fileBook'), (req, res) => {
+router.post('/create', fileMiddleware.single('fileBook'), (req, res) => {
   const fileBook = getFileFromReq(req);
   const { title, description, authors, favorite, fileCover, fileName } = req.body;
   const newBook = new Book(
@@ -38,6 +40,36 @@ router.post('/', fileMiddleware.single('fileBook'), (req, res) => {
   );
   store.setBook(newBook);
   res.redirect('/');
+});
+
+router.get('/update/:id', (req, res) => {
+  const { id } = req.params;
+  const book = store.getBook(id);
+  res.render('books/update', {
+    title: 'Редактирование книги',
+    book,
+  });
+});
+
+router.post('/update/:id', fileMiddleware.single('fileBook'), (req, res) => {
+  const { id } = req.params;
+  const book = store.getBook(id);
+  if (book) {
+    const fileBook = getFileFromReq(req);
+    const { title, description, authors, favorite, fileCover, fileName } = req.body;
+    const newBook = new Book(
+      id,
+      title,
+      description,
+      authors,
+      favorite,
+      fileCover,
+      fileName,
+      fileBook
+    );
+    store.updateBook(newBook);
+    res.redirect('/');
+  }
 });
 
 module.exports = router;
