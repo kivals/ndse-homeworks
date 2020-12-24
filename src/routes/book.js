@@ -6,7 +6,7 @@ const { getFileFromReq } = require('../helper');
 const fileMiddleware = require('../middleware/file');
 const { Book } = require('../models');
 
-const store = new Store();
+const store = Store.getInstance();
 
 router.get('/create', (req, res) => {
   const book = new Book();

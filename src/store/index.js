@@ -3,10 +3,16 @@ const helper = require('../helper');
 
 /**
  * Хранилище Книг
+ * singleton
  */
 class Store {
   constructor() {
+    console.log('create store');
     this.refreshStore();
+  }
+
+  static getInstance() {
+    return Store.instance == null ? (Store.instance = new Store()) : Store.instance;
   }
 
   /**
@@ -15,7 +21,8 @@ class Store {
   refreshStore() {
     const dbBooks = helper.readBooks();
     this.books = dbBooks.map(
-      (b) => new Book(
+      (b) =>
+        new Book(
           b.id,
           b.title,
           b.description,
@@ -23,8 +30,8 @@ class Store {
           b.favorite,
           b.fileCover,
           b.fileName,
-          b.fileBook,
-        ),
+          b.fileBook
+        )
     );
   }
 

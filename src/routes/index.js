@@ -1,10 +1,9 @@
 const express = require('express');
 
 const Store = require('../store');
-const { Book } = require('../models');
 
 const router = express.Router();
-const store = new Store();
+const store = Store.getInstance();
 
 router.get('/', (req, res) => {
   const books = store.getBooks();
