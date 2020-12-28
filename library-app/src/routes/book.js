@@ -19,9 +19,11 @@ router.get('/create', (req, res) => {
 router.get('/:id', (req, res) => {
   const { id } = req.params;
   const book = store.getBook(id);
+  book.views = book.views ? book.views + 1 : 1;
+  const updatedBook = store.updateBook(book);
   res.render('books/index', {
     title: 'Просмотр книги',
-    book,
+    book: updatedBook,
   });
 });
 

@@ -17,7 +17,7 @@ class Book {
     this.fileCover = fileCover;
     this.fileName = fileName;
     this.fileBook = fileBook;
-    this.views = views;
+    this.views = views || 0;
   }
 
   mergeBooks(book) {
