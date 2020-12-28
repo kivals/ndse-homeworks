@@ -1,10 +1,10 @@
 const express = require('express');
 
 const router = express.Router();
-const Store = require('../store');
-const { getFileFromReq } = require('../helper');
+const Store = require('../../../common/store');
+const { getFileFromReq } = require('../utils');
 const fileMiddleware = require('../middleware/file');
-const { Book } = require('../models');
+const { Book } = require('../../../common/models');
 
 const store = Store.getInstance();
 

@@ -1,5 +1,5 @@
 const { Book } = require('../models');
-const helper = require('../helper');
+const helper = require('./helper');
 
 /**
  * Хранилище Книг
@@ -30,7 +30,8 @@ class Store {
           b.favorite,
           b.fileCover,
           b.fileName,
-          b.fileBook
+          b.fileBook,
+          b.views
         )
     );
   }

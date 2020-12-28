@@ -7,7 +7,8 @@ module.exports = {
    * @returns JSON объект списка книг
    */
   readBooks() {
-    const file = path.join(__dirname, 'mock-db', 'db.json');
+    console.log(__dirname);
+    const file = path.join(__dirname, '../../', 'mock-db', 'db.json');
     const data = fs.readFileSync(file, 'utf-8');
     return JSON.parse(data).books;
   },
@@ -16,11 +17,7 @@ module.exports = {
    * @param books список книг
    */
   writeBooks(books) {
-    const file = path.join(__dirname, 'mock-db', 'db.json');
+    const file = path.join(__dirname, '../../', 'mock-db', 'db.json');
     fs.writeFileSync(file, JSON.stringify({ books }));
-  },
-
-  getFileFromReq(req) {
-    return req.file ? req.file.filename : '';
   },
 };

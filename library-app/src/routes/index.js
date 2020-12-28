@@ -1,6 +1,6 @@
 const express = require('express');
 
-const Store = require('../store');
+const Store = require('../../../common/store');
 
 const router = express.Router();
 const store = Store.getInstance();

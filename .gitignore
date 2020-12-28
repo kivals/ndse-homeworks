@@ -1,3 +1,5 @@
 /node_modules
 /.idea
-package-lock.json
+library-app/package-lock.json
+/library-app/node_modules/
+/views-counter-app/node_modules/

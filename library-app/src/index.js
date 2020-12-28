@@ -3,7 +3,7 @@ const path = require('path');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
-const indexRouter = require('./routes/index');
+const indexRouter = require('./routes');
 const booksRouter = require('./routes/book');
 const userApiRouter = require('./routes/api/user');
 const booksApiRouter = require('./routes/api/book');
