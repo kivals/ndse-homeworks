@@ -1,12 +1,11 @@
 const express = require('express');
 
-const Store = require('../../../common/store');
+const helper = require('../../../common/store/store-helper');
 
 const router = express.Router();
-const store = Store.getInstance();
 
 router.get('/', (req, res) => {
-  const books = store.getBooks();
+  const books = helper.getBooks();
   res.render('index', {
     title: 'Книги',
     books,

@@ -5,6 +5,6 @@ COPY package*.json ./
 RUN npm config set registry http://registry.npmjs.org/
 RUN npm install
 COPY common/ ./common/
-COPY library-app/ ./library-app/
-EXPOSE 3000
-CMD ["node", "library-app/src/index.js"]
+COPY views-counter-app/ ./views-counter-app/
+EXPOSE 4000
+CMD ["node", "views-counter-app/src/index.js"]

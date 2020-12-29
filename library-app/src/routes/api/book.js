@@ -2,21 +2,19 @@ const express = require('express');
 const path = require('path');
 
 const router = express.Router();
-const Store = require('../../../../common/store');
 const { Book } = require('../../../../common/models');
 const fileMiddleware = require('../../middleware/file');
+const helper = require('../../../../common/store/store-helper');
 const { getFileFromReq } = require('../../utils');
 
-const store = Store.getInstance();
-
 router.get('/', (req, res) => {
-  const data = store.getBooks();
+  const data = helper.getBooks();
   res.json(data);
 });
 
 router.get('/:id', (req, res) => {
   const { id } = req.params;
-  const book = store.getBook(id);
+  const book = helper.getBookId(id);
   if (book) {
     res.json(book);
   } else {
@@ -27,7 +25,7 @@ router.get('/:id', (req, res) => {
 
 router.get('/:id/download', (req, res) => {
   const { id } = req.params;
-  const book = store.getBook(id);
+  const book = helper.getBookId(id);
   const file = book.fileBook;
   if (file) {
     res.download(path.join(__dirname, '../', 'public/books/', file));
@@ -50,7 +48,7 @@ router.post('/', fileMiddleware.single('fileBook'), (req, res) => {
     fileName,
     fileBook
   );
-  store.setBook(newBook);
+  helper.setBook(newBook);
   res.statusCode = 201;
   res.json(newBook);
 });
@@ -70,7 +68,7 @@ router.put('/:id', fileMiddleware.single('fileBook'), (req, res) => {
     fileBook
   );
   try {
-    const updatedBook = store.updateBook(newBook);
+    const updatedBook = helper.changeBook(newBook);
     res.json(updatedBook);
   } catch (err) {
     res.statusCode = 404;
@@ -81,7 +79,7 @@ router.put('/:id', fileMiddleware.single('fileBook'), (req, res) => {
 router.delete('/:id', (req, res) => {
   const { id } = req.params;
   try {
-    store.deleteBook(id);
+    helper.deleteBook(id);
     res.json('OK');
   } catch (err) {
     res.statusCode = 404;

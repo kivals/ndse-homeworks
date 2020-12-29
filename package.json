@@ -1,22 +1,24 @@
 {
-  "name": "ndse-homeworks",
+  "name": "006-express",
   "version": "1.0.0",
-  "description": "https://nodejs-express-ejs-kivals.herokuapp.com/",
-  "main": "index.js",
+  "description": "",
+  "main": "src/index.js",
   "scripts": {
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/kivals/ndse-homeworks.git"
-  },
-  "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/kivals/ndse-homeworks/issues"
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "express-form-data": "^2.0.14",
+    "multer": "^1.4.2",
+    "node-unique-id-generator": "^0.1.0"
   },
-  "homepage": "https://github.com/kivals/ndse-homeworks#readme",
   "devDependencies": {
     "eslint": "^7.16.0",
     "eslint-config-airbnb-base": "^14.2.1",
@@ -24,8 +26,5 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-prettier": "^3.3.0",
     "prettier": "^2.2.1"
-  },
-  "dependencies": {
-    "node-unique-id-generator": "^0.1.0"
   }
 }

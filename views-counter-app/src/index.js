@@ -1,12 +1,11 @@
 const express = require('express');
-const Store = require('../../common/store');
+const helper = require('../../common/store/store-helper');
 
 const app = express();
-const store = new Store();
 
 app.get('/counter/:bookId', (req, res) => {
   const { bookId } = req.params;
-  const book = store.getBook(bookId);
+  const book = helper.getBookId(bookId);
   if (book) {
     res.json(book.views || 0);
   } else {
@@ -17,10 +16,10 @@ app.get('/counter/:bookId', (req, res) => {
 
 app.post('/counter/:bookId/incr', (req, res) => {
   const { bookId } = req.params;
-  const book = store.getBook(bookId);
+  const book = helper.getBookId(bookId);
   if (book) {
     book.views = book.views ? book.views + 1 : 1;
-    const mergedBook = store.updateBook(book);
+    const mergedBook = helper.changeBook(book);
     res.json(mergedBook.views);
   } else {
     res.statusCode = 404;
