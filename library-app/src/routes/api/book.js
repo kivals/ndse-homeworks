@@ -2,19 +2,19 @@ const express = require('express');
 const path = require('path');
 
 const router = express.Router();
-const { Book } = require('../../../../common/models');
+const { Book } = require('../../models');
 const fileMiddleware = require('../../middleware/file');
-const helper = require('../../../../common/store/store-helper');
+const helper = require('../../store/store-helper');
 const { getFileFromReq } = require('../../utils');
 
-router.get('/', (req, res) => {
-  const data = helper.getBooks();
+router.get('/', async (req, res) => {
+  const data = await helper.getBooks();
   res.json(data);
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
   const { id } = req.params;
-  const book = helper.getBookId(id);
+  const book = await helper.getBookId(id);
   if (book) {
     res.json(book);
   } else {
@@ -23,9 +23,9 @@ router.get('/:id', (req, res) => {
   }
 });
 
-router.get('/:id/download', (req, res) => {
+router.get('/:id/download', async (req, res) => {
   const { id } = req.params;
-  const book = helper.getBookId(id);
+  const book = await helper.getBookId(id);
   const file = book.fileBook;
   if (file) {
     res.download(path.join(__dirname, '../', 'public/books/', file));
@@ -53,7 +53,7 @@ router.post('/', fileMiddleware.single('fileBook'), (req, res) => {
   res.json(newBook);
 });
 
-router.put('/:id', fileMiddleware.single('fileBook'), (req, res) => {
+router.put('/:id', fileMiddleware.single('fileBook'), async (req, res) => {
   const { id } = req.params;
   const fileBook = getFileFromReq(req);
   const { title, description, authors, favorite, fileCover, fileName } = req.body;
@@ -68,7 +68,7 @@ router.put('/:id', fileMiddleware.single('fileBook'), (req, res) => {
     fileBook
   );
   try {
-    const updatedBook = helper.changeBook(newBook);
+    const updatedBook = await helper.changeBook(newBook);
     res.json(updatedBook);
   } catch (err) {
     res.statusCode = 404;
@@ -76,10 +76,10 @@ router.put('/:id', fileMiddleware.single('fileBook'), (req, res) => {
   }
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
   const { id } = req.params;
   try {
-    helper.deleteBook(id);
+    await helper.deleteBook(id);
     res.json('OK');
   } catch (err) {
     res.statusCode = 404;

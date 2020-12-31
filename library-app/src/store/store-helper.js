@@ -1,4 +1,5 @@
 const path = require('path');
+const http = require('../http');
 const Book = require('../models/Book');
 const { writeBooks, readBooks } = require('./file-utils');
 
@@ -7,22 +8,22 @@ module.exports = {
    * Удалить книгу
    * @param id ИД книги
    */
-  deleteBook(id) {
-    const books = this.getBooks();
+  async deleteBook(id) {
+    const books = await this.getBooks();
     const ind = books.findIndex((b) => b.id === id);
     if (ind === -1) {
       throw new Error('Такой книги не существует');
     }
     books.splice(ind, 1);
-    this.writeBooks(books, this.getDbFile());
+    writeBooks(books, this.getDbFile());
   },
   /**
    * Обновить состояние книги, если она существует
    * @param newBook данные для обноления
    * @returns смерженная книга
    */
-  changeBook(newBook) {
-    const books = this.getBooks();
+  async changeBook(newBook) {
+    const books = await this.getBooks();
     const existBook = books.find((b) => b.id === newBook.id);
     if (!existBook) {
       throw new Error('Такой книги не существует');
@@ -35,8 +36,8 @@ module.exports = {
    * Записать книгу в хранилище
    * @param book книга
    */
-  setBook(book) {
-    const books = this.getBooks();
+  async setBook(book) {
+    const books = await this.getBooks();
     books.push(book);
     writeBooks(books, this.getDbFile());
   },
@@ -45,17 +46,26 @@ module.exports = {
    * @param id ИД книги
    * @returns найденая книга
    */
-  getBookId(id) {
-    return this.getBooks().find((b) => b.id === id);
+  async getBookId(id) {
+    console.log('СТАРТ getBookId');
+    const books = await this.getBooks();
+    const book = books.find((b) => b.id === id);
+    const response = await http.post(`http://localhost:3000/counter/${id}/incr`);
+    book.views = response.data;
+    console.log('КОНЕЦ getBookId');
+    return book;
   },
   /**
    * Загругить все доступные книги
-   * @returns Список книг
+   * @returns Promise<void[]> книг
    */
-  getBooks() {
-    return readBooks(this.getDbFile()).map(
-      (b) =>
-        new Book(
+  async getBooks(loadViews = true) {
+    console.log('СТАРТ getBooks');
+    const booksObj = readBooks(this.getDbFile());
+    return Promise.all(
+      booksObj.map(async (b) => {
+        console.log('--СТАРТ: Запрос http.get');
+        const book = new Book(
           b.id,
           b.title,
           b.description,
@@ -63,9 +73,16 @@ module.exports = {
           b.favorite,
           b.fileCover,
           b.fileName,
-          b.fileBook,
-          b.views
-        )
+          b.fileBook
+        );
+        // Получаем просмотры
+        if (!loadViews) {
+          const views = await http.get(`http://localhost:3000/counter/${b.id}`);
+          book.views = views || 0;
+        }
+        console.log('--КОНЕЦ: Запрос http.get');
+        return book;
+      })
     );
   },
 

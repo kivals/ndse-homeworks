@@ -1,11 +1,15 @@
 const express = require('express');
-
-const helper = require('../../../common/store/store-helper');
+const helper = require('../store/store-helper');
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  const books = helper.getBooks();
+/**
+ * Получить все книги
+ */
+router.get('/', async (req, res) => {
+  console.log('СТАРТ: Общий запрос GetBooks');
+  const books = await helper.getBooks();
+  console.log('КОНЕЦ: Общий запрос GetBooks');
   res.render('index', {
     title: 'Книги',
     books,

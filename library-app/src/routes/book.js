@@ -3,8 +3,8 @@ const express = require('express');
 const router = express.Router();
 const { getFileFromReq } = require('../utils');
 const fileMiddleware = require('../middleware/file');
-const helper = require('../../../common/store/store-helper');
-const { Book } = require('../../../common/models');
+const helper = require('../store/store-helper');
+const { Book } = require('../models');
 
 router.get('/create', (req, res) => {
   const book = new Book();
@@ -14,18 +14,24 @@ router.get('/create', (req, res) => {
   });
 });
 
-router.get('/:id', (req, res) => {
+/**
+ * Получить книгу по id
+ */
+router.get('/:id', async (req, res) => {
   const { id } = req.params;
-  const book = helper.getBookId(id);
-  book.views = book.views ? book.views + 1 : 1;
-  const updatedBook = helper.changeBook(book);
+  const book = await helper.getBookId(id);
+  // book.views = book.views ? book.views + 1 : 1;
+  // const updatedBook = await helper.changeBook(id);
   res.render('books/index', {
     title: 'Просмотр книги',
-    book: updatedBook,
+    book,
   });
 });
 
-router.post('/create', fileMiddleware.single('fileBook'), (req, res) => {
+/**
+ * Создавть новую книгу
+ */
+router.post('/create', fileMiddleware.single('fileBook'), async (req, res) => {
   const fileBook = getFileFromReq(req);
   const { title, description, authors, favorite, fileCover, fileName } = req.body;
   const newBook = new Book(
@@ -38,22 +44,22 @@ router.post('/create', fileMiddleware.single('fileBook'), (req, res) => {
     fileName,
     fileBook
   );
-  helper.setBook(newBook);
+  await helper.setBook(newBook);
   res.redirect('/');
 });
 
-router.get('/update/:id', (req, res) => {
+router.get('/update/:id', async (req, res) => {
   const { id } = req.params;
-  const book = helper.getBookId(id);
+  const book = await helper.getBookId(id);
   res.render('books/update', {
     title: 'Редактирование книги',
     book,
   });
 });
 
-router.post('/update/:id', fileMiddleware.single('fileBook'), (req, res) => {
+router.post('/update/:id', fileMiddleware.single('fileBook'), async (req, res) => {
   const { id } = req.params;
-  const book = helper.getBookId(id);
+  const book = await helper.getBookId(id);
   if (book) {
     const fileBook = getFileFromReq(req);
     const { title, description, authors, favorite, fileCover, fileName } = req.body;
@@ -67,7 +73,7 @@ router.post('/update/:id', fileMiddleware.single('fileBook'), (req, res) => {
       fileName,
       fileBook
     );
-    helper.changeBook(newBook);
+    await helper.changeBook(newBook);
     res.redirect('/');
   }
 });
