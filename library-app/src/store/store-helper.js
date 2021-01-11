@@ -47,12 +47,10 @@ module.exports = {
    * @returns найденая книга
    */
   async getBookId(id) {
-    console.log('СТАРТ getBookId');
     const books = await this.getBooks();
     const book = books.find((b) => b.id === id);
-    const response = await http.post(`http://localhost:3000/counter/${id}/incr`);
+    const response = await http.post(`${process.env.COUNTER_URL}/counter/${id}/incr`);
     book.views = response.data;
-    console.log('КОНЕЦ getBookId');
     return book;
   },
   /**
@@ -60,11 +58,9 @@ module.exports = {
    * @returns Promise<void[]> книг
    */
   async getBooks(loadViews = true) {
-    console.log('СТАРТ getBooks');
     const booksObj = readBooks(this.getDbFile());
     return Promise.all(
       booksObj.map(async (b) => {
-        console.log('--СТАРТ: Запрос http.get');
         const book = new Book(
           b.id,
           b.title,
@@ -76,11 +72,10 @@ module.exports = {
           b.fileBook
         );
         // Получаем просмотры
-        if (!loadViews) {
-          const views = await http.get(`http://localhost:3000/counter/${b.id}`);
+        if (loadViews) {
+          const views = await http.get(`${process.env.COUNTER_URL}/counter/${b.id}`);
           book.views = views || 0;
         }
-        console.log('--КОНЕЦ: Запрос http.get');
         return book;
       })
     );

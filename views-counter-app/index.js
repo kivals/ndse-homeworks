@@ -5,9 +5,7 @@ const app = express();
 
 app.get('/counter/:bookId', (req, res) => {
   const { bookId } = req.params;
-  console.log(`Counter: ПРИШЕЛ ЗАПРОС ------ ${bookId}`);
   const bookView = fileUtils.getViewById(bookId);
-  console.log(`ПОЛУЧЕН view ${JSON.stringify(bookView)}`);
   if (bookView) {
     res.json(bookView.count);
   } else {
@@ -17,7 +15,6 @@ app.get('/counter/:bookId', (req, res) => {
 });
 
 app.post('/counter/:bookId/incr', (req, res) => {
-  console.log('запрос на incr');
   const { bookId } = req.params;
   const updatedView = fileUtils.incrView(bookId);
   if (updatedView) {

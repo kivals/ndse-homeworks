@@ -7,10 +7,7 @@ services:
     container_name: 'counter-app'
     ports:
       - 4000:4000
-    volumes:
-      - ./mock-db:/app/mock-db/
     environment:
-      DB_PATH: /app/mock-db/
       PORT: 4000
   library-app:
     build:
@@ -19,8 +16,6 @@ services:
     container_name: 'library-app'
     ports:
       - 3000:3000
-    volumes:
-      - ./mock-db:/app/mock-db/
     environment:
-      DB_PATH: /app/mock-db/
       PORT: 3000
+      COUNTER_URL: counter-app://counter-app:4000

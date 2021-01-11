@@ -7,9 +7,7 @@ const router = express.Router();
  * Получить все книги
  */
 router.get('/', async (req, res) => {
-  console.log('СТАРТ: Общий запрос GetBooks');
   const books = await helper.getBooks();
-  console.log('КОНЕЦ: Общий запрос GetBooks');
   res.render('index', {
     title: 'Книги',
     books,
