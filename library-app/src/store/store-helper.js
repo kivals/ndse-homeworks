@@ -49,8 +49,12 @@ module.exports = {
   async getBookId(id) {
     const books = await this.getBooks();
     const book = books.find((b) => b.id === id);
-    const response = await http.post(`${process.env.COUNTER_URL}/counter/${id}/incr`);
-    book.views = response.data;
+    try {
+      const response = await http.post(`${process.env.COUNTER_URL}/counter/${id}/incr`);
+      book.views = response.data;
+    } catch (e) {
+      book.views = 0;
+    }
     return book;
   },
   /**
@@ -73,8 +77,11 @@ module.exports = {
         );
         // Получаем просмотры
         if (loadViews) {
-          const views = await http.get(`${process.env.COUNTER_URL}/counter/${b.id}`);
-          book.views = views || 0;
+          try {
+            book.views = await http.get(`${process.env.COUNTER_URL}/counter/${b.id}`);
+          } catch (e) {
+            book.views = 0;
+          }
         }
         return book;
       })

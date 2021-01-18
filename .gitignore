@@ -2,4 +2,5 @@
 /.idea
 library-app/package-lock.json
 /library-app/node_modules/
+/library-app/.env
 /views-counter-app/node_modules/
