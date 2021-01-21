@@ -15,7 +15,7 @@ exports.createBook = async (req, res) => {
     await book.save();
     res.redirect('/');
   } catch (e) {
-    console.log(e.message);
+    console.error(e.message);
     res.status(400).send('Unable to save shark to database');
   }
 };
@@ -38,16 +38,14 @@ exports.getEditBook = async (req, res) => {
   });
 };
 
-exports.editBook = async (req, res) => {
+exports.editBook = async (req) => {
   const { id } = req.params;
   const filter = { _id: id };
   const update = req.body;
-  const upBook = await Book.findOneAndUpdate(filter, update);
-  console.log('LOGGGGG ' + upBook);
-
+  await Book.findOneAndUpdate(filter, update);
 };
 
-exports.deleteBook = async (req, res) => {
+exports.deleteBook = async (req) => {
   const { id } = req.params;
   const filter = { _id: id };
   await Book.deleteOne(filter);

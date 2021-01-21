@@ -7,7 +7,6 @@ const indexRoute = require('./routes/index');
 const bookRoute = require('./routes/book');
 
 const app = express();
-console.log(`SET PORT = ${process.env.APP_PORT}`);
 const PORT = process.env.APP_PORT || 8000;
 const VIEWS_DIR = `${__dirname}/views/`;
 
@@ -24,9 +23,9 @@ app.use(express.static('public/books'));
 db.connect()
   .then(() => {
     app.listen(PORT, () => {
-      console.log(`Сервер запущен на ${PORT} порту`);
+      console.info(`Сервер запущен на ${PORT} порту`);
     });
   })
   .catch((e) => {
-    console.log(e);
+    console.error(e);
   });
