@@ -1,0 +1,10 @@
+<%- include('../layout/header', {title: title}) %>
+
+<div class="row g-3">
+    <div class="col-md-7 col-lg-8">
+        <h4 class="mb-3"><%= title %></h4>
+        <%- include('./form', {book: book}) %>
+    </div>
+</div>
+
+<%- include('../layout/footer', {title: title}) %>

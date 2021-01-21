@@ -1,0 +1,26 @@
+<%- include('../layout/header', {title: title}) %>
+<div class="row">
+    <div class="col">
+        <img src="<%= book.fileCover %>" class="img-fluid" alt="...">
+    </div>
+    <div class="col">
+        <h1 class="font-monospace"><%= book.title %></h1>
+        <p class="text-muted">
+            Описание:
+            <%= book.description%>
+        </p>
+        <p class="text-muted">
+            Авторы:
+            <%= book.authors%>
+        </p>
+        <p class="text-muted">
+            Просмотров:
+            <%= book.views%>
+        </p>
+        <hr>
+        <a href="/" class="btn btn-primary">Назад</a>
+        <a href="/<%= book.fileBook %>" class="btn btn-primary">Скачать</a>
+        <a href="update/<%= book.id %>" class="btn btn-primary">Редактировать</a>
+    </div>
+</div>
+<%- include('../layout/footer', {title: title})%>

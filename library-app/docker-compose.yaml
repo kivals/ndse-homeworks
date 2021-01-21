@@ -1,0 +1,35 @@
+version: '3.2'
+services:
+  book-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: book-app
+    container_name: book-app-ctn
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - MONGO_USERNAME=$MONGO_USERNAME
+      - MONGO_PASSWORD=$MONGO_PASSWORD
+      - MONGO_HOSTNAME=db
+      - MONGO_PORT=$MONGO_PORT
+      - MONGO_DB=$MONGO_DB
+      - APP_PORT=$APP_PORT
+    ports:
+      - 8000:$APP_PORT
+    volumes:
+    - .:/home/node/app
+    command: ./wait-for.sh db:27017 -- /home/node/app/node_modules/.bin/nodemon app.js
+
+  db:
+    image: mongo:3-xenial
+    container_name: mongo-ctn
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=$MONGO_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD=$MONGO_PASSWORD
+    volumes:
+      - ./dbdata:/data/db
+volumes:
+  dbdata:

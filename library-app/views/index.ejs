@@ -1,0 +1,39 @@
+<%- include('./layout/header', {title: title}) %>
+
+<% if(books.length) { %>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        <% books.map((book, idx) => { %>
+            <div class="col">
+                <div class="card shadow-sm">
+                    <img src="<%= book.fileCover %>" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text"><%= book.title %></p>
+                        <p class="card-text"><%= book.description %></p>
+                        <p class="card-text">Авторы: <%= book.authors %></p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a class="card-link" href="/books/<%= book.id %>">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary">
+                                        Смотреть
+                                    </button>
+                                </a>
+                                <a class="card-link" href="/books/delete/<%= book.id %>">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary">
+                                        Удалить
+                                    </button>
+                                </a>
+                            </div>
+                            <small class="text-muted">Просмотров: <%= book.views %></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+<% } else { %>
+    <h3 class="mt-5">Записей пока нет</h3>
+<% } %>
+<hr>
+<a href="books/create" class="btn btn-primary">Загрузить новую книгу</a>
+
+<%- include('./layout/footer', {title: title}) %>

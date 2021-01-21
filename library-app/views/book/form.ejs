@@ -1,0 +1,53 @@
+<form enctype="multipart/form-data" method="post" id="book" name="book" class="needs-validation" novalidate>
+    <div class="row g-3">
+        <div class="col-sm-6">
+            <label for="title" class="form-label">Название книги</label>
+            <input name="title" type="text" class="form-control" id="title" placeholder="Название книги" value="<%= book.title %>" required>
+            <div class="invalid-feedback">
+                Valid title is required.
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="col-sm-6">
+                <label for="description" class="form-label">Описание книги</label>
+                <textarea
+                        name="description"
+                        class="form-control"
+                        id="description"
+                        cols="30"
+                        rows="10"
+                        placeholder="Описание книги"
+                ><%= book.description %></textarea>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="col-sm-6">
+                <label for="authors" class="form-label">Авторы книги</label>
+                <input name="authors" type="text" class="form-control" id="authors" placeholder="Авторы книги" value="<%= book.authors %>" required>
+                <div class="invalid-feedback">
+                    Valid authors is required.
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="col-sm-6">
+                <label for="fileCover" class="form-label">Url обложки</label>
+                <input name="fileCover" type="text" class="form-control" id="fileCover" placeholder="Url обложки" value="<%= book.fileCover %>">
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="col-sm-6 mb-3">
+                <label for="fileBook" class="form-label">Загрузить файл книги</label>
+                <input name="fileBook" class="form-control" type="file" id="fileBook">
+            </div>
+        </div>
+
+        <hr class="my-4">
+
+        <button class="w-100 btn btn-primary btn-lg" type="submit">Сохранить...</button>
+    </div>
+</form>

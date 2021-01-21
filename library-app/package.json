@@ -1,28 +1,29 @@
 {
-  "name": "library-app",
+  "name": "ndse-books-app",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
+  "scripts": {
+    "serve": "nodemon app.js"
+  },
+  "author": "melnik",
+  "license": "ISC",
   "dependencies": {
-    "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
-    "express-form-data": "^2.0.14",
     "mongoose": "^5.11.12",
-    "multer": "^1.4.2",
-    "node-unique-id-generator": "^0.1.0"
+    "multer": "^1.4.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.6"
-  },
-  "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+    "eslint": "^7.18.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.3.1",
+    "nodemon": "^2.0.7",
+    "prettier": "^2.2.1"
+  }
 }

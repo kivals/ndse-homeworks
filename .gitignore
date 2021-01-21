@@ -1,6 +1,7 @@
 /node_modules
 /.idea
-library-app/package-lock.json
+/library-app/package-lock.json
+/library-app/dbdata/
 /library-app/node_modules/
 /library-app/.env
 /views-counter-app/node_modules/
