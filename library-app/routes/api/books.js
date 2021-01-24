@@ -12,8 +12,8 @@ router.get('/:id', async (req, res) => {
   await book.getBookIdApi(req, res);
 });
 
-router.post('/', fileMiddleware.single('fileBook'), async (req, res) => {
-  await book.createBookApi(req, res);
+router.post('/', fileMiddleware.single('fileBook'), async (req, res, next) => {
+  await book.createBookApi(req, res, next);
 });
 
 router.put('/:id', fileMiddleware.single('fileBook'), async (req, res) => {

@@ -25,15 +25,14 @@ exports.createBook = async (req, res) => {
   }
 };
 
-exports.createBookApi = async (req, res) => {
+exports.createBookApi = async (req, res, next) => {
   const fileBook = req.file ? req.file.filename : '';
   const book = new Book({ ...req.body, fileBook });
   try {
     const newBook = await book.save();
     res.json(newBook);
   } catch (e) {
-    console.error(e.message);
-    res.status(400).send('Unable to save shark to database');
+    next(e);
   }
 };
 

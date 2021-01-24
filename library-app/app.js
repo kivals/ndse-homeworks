@@ -6,6 +6,7 @@ const db = require('./db');
 const indexRoute = require('./routes/index');
 const bookRoute = require('./routes/book');
 const bookApiRoute = require('./routes/api/books');
+const errorMiddleware = require('./middleware/error');
 
 const app = express();
 const PORT = process.env.APP_PORT || 8000;
@@ -22,6 +23,7 @@ app.use('/api/books/', bookApiRoute);
 app.use(cors());
 app.use(express.static('public/books'));
 
+app.use(errorMiddleware);
 db.connect()
   .then(() => {
     app.listen(PORT, () => {
