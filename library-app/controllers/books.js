@@ -1,3 +1,4 @@
+const { checkDocExist, makeNotFoundError } = require('./controller-utils');
 const Book = require('../models/book');
 
 exports.newBook = (req, res) => {
@@ -8,9 +9,13 @@ exports.newBook = (req, res) => {
   });
 };
 
-exports.getBooksApi = async (res) => {
-  const books = await Book.find({});
-  res.json(books);
+exports.getBooksApi = async (res, next) => {
+  try {
+    const books = await Book.find({});
+    res.json(books);
+  } catch (error) {
+    next(error);
+  }
 };
 
 exports.createBook = async (req, res) => {
@@ -30,9 +35,9 @@ exports.createBookApi = async (req, res, next) => {
   const book = new Book({ ...req.body, fileBook });
   try {
     const newBook = await book.save();
-    res.json(newBook);
-  } catch (e) {
-    next(e);
+    res.status(201).json(newBook);
+  } catch (error) {
+    next(error);
   }
 };
 
@@ -45,10 +50,18 @@ exports.getBookId = async (req, res) => {
   });
 };
 
-exports.getBookIdApi = async (req, res) => {
+exports.getBookIdApi = async (req, res, next) => {
   const { id } = req.params;
-  const book = await Book.findById(id);
-  res.json(book);
+  try {
+    const book = await Book.findById(id);
+    if (!book) {
+      next(makeNotFoundError());
+    } else {
+      res.json(book);
+    }
+  } catch (error) {
+    next(error);
+  }
 };
 
 exports.getEditBook = async (req, res) => {
@@ -67,18 +80,20 @@ exports.editBook = async (req) => {
   await Book.findOneAndUpdate(filter, update);
 };
 
-exports.editBookApi = async (req, res) => {
+exports.editBookApi = async (req, res, next) => {
   const { id } = req.params;
-  const filter = { _id: id };
   const update = req.body;
   try {
-    const updatedBook = await Book.findOneAndUpdate(filter, update, {
+    if (!(await checkDocExist(Book, { _id: id }))) {
+      next(makeNotFoundError());
+      return;
+    }
+    const updatedBook = await Book.findByIdAndUpdate(id, update, {
       new: true,
     });
     res.json(updatedBook);
   } catch (e) {
-    console.error(e);
-    res.status(400).send('Document has not been found');
+    next(e);
   }
 };
 
@@ -88,14 +103,16 @@ exports.deleteBook = async (req) => {
   await Book.deleteOne(filter);
 };
 
-exports.deleteBookApi = async (req, res) => {
+exports.deleteBookApi = async (req, res, next) => {
   const { id } = req.params;
-  const filter = { _id: id };
   try {
-    await Book.findByIdAndDelete(filter);
+    if (!(await checkDocExist(Book, { _id: id }))) {
+      next(makeNotFoundError());
+      return;
+    }
+    await Book.findByIdAndDelete(id);
     res.json('OK');
   } catch (e) {
-    console.error(e);
-    res.status(400).send('Document has not been found');
+    next(e);
   }
 };
