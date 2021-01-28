@@ -1,9 +1,10 @@
-const Book = require('../models/book');
+const Book = require('../models/Book');
 
-exports.index = async (res) => {
+exports.index = async (req, res) => {
   const books = await Book.find({});
   res.render('index', {
     title: 'Книги',
     books,
+    auth: !!req.user,
   });
 };

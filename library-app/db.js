@@ -20,4 +20,7 @@ exports.connect = async () => {
   const url = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}?authSource=admin`;
   await mongoose.connect(url, options);
   console.info('Соединение с БД установлено');
+  // if devMode проливаем данные для разработки
+  // eslint-disable-next-line global-require
+  await require('./fixtures/index');
 };

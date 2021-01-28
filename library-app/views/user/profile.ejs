@@ -1,0 +1,17 @@
+<%- include('../layout/header', {title: title}) %>
+
+<div class="row g-3">
+    <div class="col">
+        <p class="text-muted">
+            Email:
+            <%= user.email%>
+        </p>
+        <p class="text-muted">
+            Имя:
+            <%= user.displayName %>
+        </p>
+        <hr>
+    </div>
+</div>
+
+<%- include('../layout/footer', {title: title}) %>

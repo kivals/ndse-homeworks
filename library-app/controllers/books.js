@@ -1,11 +1,12 @@
 const { checkDocExist, makeNotFoundError } = require('./controller-utils');
-const Book = require('../models/book');
+const Book = require('../models/Book');
 
 exports.newBook = (req, res) => {
   const book = new Book();
   res.render('book/create', {
     title: 'Создание книги',
     book,
+    auth: !!req.user,
   });
 };
 
@@ -47,6 +48,7 @@ exports.getBookId = async (req, res) => {
   res.render('book/index', {
     title: 'Просмотр книги',
     book,
+    auth: !!req.user,
   });
 };
 
@@ -70,6 +72,7 @@ exports.getEditBook = async (req, res) => {
   res.render('book/update', {
     title: 'Редактирование книги',
     book,
+    auth: !!req.user,
   });
 };
 

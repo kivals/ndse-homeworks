@@ -1,0 +1,43 @@
+{
+  "users": [
+    {
+      "email": "user1@mail.com",
+      "displayName": "user1",
+      "password": "123123"
+    },
+    {
+      "email": "user2@mail.com",
+      "displayName": "user2",
+      "password": "123123"
+    }
+  ],
+  "books": [
+    {
+      "title": "Гари Поттер1",
+      "description": "Книга о Гари Поттер1",
+      "authors": "Авторы Гари Поттер1",
+      "favorite": false,
+      "fileCover": "https://www.publy.ru/wp-content/uploads/2018/03/molodoy-garri-potter.jpg",
+      "fileName": "Гари Поттер1",
+      "views": 0
+    },
+    {
+      "title": "Гари Поттер2",
+      "description": "Книга о Гари Поттер2",
+      "authors": "Авторы Гари Поттер2",
+      "favorite": false,
+      "fileCover": "https://proprikol.ru/wp-content/uploads/2020/04/kartinki-garri-potter-2.jpg",
+      "fileName": "Гари Потте2",
+      "views": 0
+    },
+    {
+      "title": "Гари Поттер3",
+      "description": "Книга о Гари Поттер3",
+      "authors": "Авторы Гари Поттер3",
+      "favorite": false,
+      "fileCover": "https://static.wikia.nocookie.net/harrypotter/images/4/43/PromoHP7_Harry_Potter_3.jpg/revision/latest?cb=20151025181018&path-prefix=ru",
+      "fileName": "Гари Потте3",
+      "views": 0
+    }
+  ]
+}

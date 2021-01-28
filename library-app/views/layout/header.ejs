@@ -40,6 +40,11 @@
                 <i class="bi bi-book" style="font-size: 2rem; color: #fff;"></i>
                 <strong>Книжная полка</strong>
             </a>
+            <% if(auth) { %>
+                <a href="/api/user/me">Личный кабинет</a>
+            <% } else {%>
+                <a href="/api/user/login">Войти</a>
+            <% } %>
         </div>
     </div>
 </header>
