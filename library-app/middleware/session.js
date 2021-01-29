@@ -5,14 +5,11 @@ module.exports = async (req, res, next) => {
   if (!token) return next();
   const session = await Session.findOne({ token }).populate('user');
   if (!session) {
-    next({
-      status: 401,
-      message: 'Неверный аутентификационный токен',
-    });
+    res.clearCookie('authorization');
   } else {
     session.lastVisit = new Date();
     await session.save();
     req.user = session.user;
-    next();
   }
+  next();
 };

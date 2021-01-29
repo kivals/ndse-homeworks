@@ -51,12 +51,12 @@ function generateSalt() {
   });
 }
 
-userSchema.methods.setPassword = async (password) => {
+userSchema.methods.setPassword = async function (password) {
   this.salt = await generateSalt();
   this.passwordHash = await generatePassword(this.salt, password);
 };
 
-userSchema.methods.checkPassword = async (password) => {
+userSchema.methods.checkPassword = async function (password) {
   if (!password) return false;
   const hash = await generatePassword(this.salt, password);
   return hash === this.passwordHash;
