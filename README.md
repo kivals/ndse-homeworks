@@ -1,4 +1,4 @@
-# 012-Авторизация с PassportJS
+# 013-websocket
 Для запуска:
 1) Зайти в `library-app`
 2) Создать `.env` по примеру `.env.example`
