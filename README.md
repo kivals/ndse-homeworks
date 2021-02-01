@@ -8,8 +8,8 @@
 
 
 Что сделано:
-- Подключен Socket.IO `./lib/socket.js`
-- Модель Комментарий`./model/Comment`
-- Доработана страница просмотра книги `./views/book/index.ejs`
-- Добавлен клиентский скрипт `/views/layout/footer.ejs `
+- Подключен Socket.IO `./library-app/lib/socket.js`
+- Модель Комментарий`./library-app/model/Comment`
+- Доработана страница просмотра книги `./library-app/views/book/index.ejs`
+- Добавлен клиентский скрипт `./library-app/views/layout/footer.ejs `
 
