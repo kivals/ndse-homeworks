@@ -1,8 +1,10 @@
 require('dotenv').config();
+const http = require('http');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const express = require('express');
 const cors = require('cors');
+const { socket } = require('./lib/socket');
 const db = require('./db');
 const passport = require('./lib/passport');
 const indexRoute = require('./routes/index');
@@ -13,6 +15,8 @@ const errorMiddleware = require('./middleware/error');
 const sessionMiddleware = require('./middleware/session');
 
 const app = express();
+const server = http.Server(app);
+
 const PORT = process.env.APP_PORT || 8000;
 const VIEWS_DIR = `${__dirname}/views/`;
 
@@ -34,7 +38,8 @@ app.use('/api/user/', userApiRoute);
 app.use(errorMiddleware);
 db.connect()
   .then(() => {
-    app.listen(PORT, () => {
+    socket(server);
+    server.listen(PORT, () => {
       console.info(`Сервер запущен на ${PORT} порту`);
     });
   })

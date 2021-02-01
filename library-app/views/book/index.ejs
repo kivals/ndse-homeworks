@@ -21,6 +21,35 @@
         <a href="/" class="btn btn-primary">Назад</a>
         <a href="/<%= book.fileBook %>" class="btn btn-primary">Скачать</a>
         <a href="update/<%= book.id %>" class="btn btn-primary">Редактировать</a>
+        <hr>
+        <div class="card">
+            <div class="card-header">
+                Обсуждение книги
+            </div>
+            <div class="card-body">
+                <ul id="msgList" class="list-group">
+                    <% comments.map((comment, idx) => { %>
+                        <li class="list-group-item">
+                            <p><%= comment.message %></p>
+                            <small class="mb-3 d-block text-muted"><%= comment.userName %>: <%= comment.humanDate %></small>
+                        </li>
+                    <% }) %>
+                </ul>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col mb-2 mb-sm-0">
+                        <input id="text" type="text" class="form-control border-0" placeholder="Enter your text" required=""/>
+                    </div>
+                    <div class="col mb-2 mb-sm-0">
+                        <button type="submit" id="sendMessage" class="btn btn-success">
+                            <i class="bi bi-arrow-right-circle-fill"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 <%- include('../layout/footer', {title: title})%>

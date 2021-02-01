@@ -1,5 +1,6 @@
 const { checkDocExist, makeNotFoundError } = require('./controller-utils');
 const Book = require('../models/Book');
+const Comment = require('../models/Comment');
 
 exports.newBook = (req, res) => {
   const book = new Book();
@@ -45,9 +46,11 @@ exports.createBookApi = async (req, res, next) => {
 exports.getBookId = async (req, res) => {
   const { id } = req.params;
   const book = await Book.findById(id);
+  const comments = await Comment.find({ bookId: id }).sort('-date');
   res.render('book/index', {
     title: 'Просмотр книги',
     book,
+    comments,
     auth: !!req.user,
   });
 };

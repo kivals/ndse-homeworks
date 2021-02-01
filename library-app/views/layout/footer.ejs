@@ -8,5 +8,32 @@
         <p class="mb-1">Книжная полка &copy; Melnik</p>
     </div>
 </footer>
+<script>
+  window.addEventListener('load', function() {
+    const bookId = location.pathname.split('/').pop();
+    const socket = io.connect('/',{query: `bookId=${bookId}`});
+    const sendMsgBtn = document.querySelector('#sendMessage');
+    const input = document.querySelector('#text');
+    const msgList = document.querySelector('#msgList');
+    const genListItem = (data) => {
+      return `
+                <li class="list-group-item">
+                   <p>${data.message}</p>
+                   <small class="mb-3 d-block text-muted">${data.userName}: ${data.date}</small>
+                </li>
+      `;
+    };
+    socket.on('message', (data) => {
+      const li = genListItem(data);
+      msgList.insertAdjacentHTML('afterbegin', li);
+    });
+
+    sendMsgBtn.addEventListener('click', () => {
+      socket.emit('message', input.value);
+      input.value = '';
+    })
+  })
+
+</script>
 </body>
 </html>
